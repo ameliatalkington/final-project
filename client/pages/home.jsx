@@ -45,23 +45,47 @@ const styles = {
   }
 };
 
-export default function Home(props) {
-  return (
-    <>
-      <div className='home-search'>
-        <div className='float-text' style={styles.tagline}>
-          <h3>find your panacea...</h3>
-        </div>
-        <div className='container' style={styles.container}>
-          <div className='buttons'>
-            <button style={styles.searchButton}>search</button>
-            <button style={styles.filterButton}>filter</button>
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: ''
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    //settimeout delay before sending get to api
+    console.log(event.target.value);
+    this.setState({ search: event.target.value });
+  }
+
+  handleSubmit(event) {
+    //send get to api
+    event.preventDefault();
+    console.log('state:', this.state);
+  }
+
+  render() {
+    return (
+      <>
+        <div className='home-search'>
+          <div className='float-text' style={styles.tagline}>
+            <h3>find your panacea...</h3>
           </div>
-          <form>
-            <input style={styles.search} type="search" placeholder='city, state, county, zip' />
-          </form>
+          <div className='container' style={styles.container}>
+            <div className='buttons'>
+              <button style={styles.searchButton}>search</button>
+              <button style={styles.filterButton}>filter</button>
+            </div>
+            <form onSubmit={this.handleSubmit}>
+              <input style={styles.search} value={this.state.search}
+               onChange={this.handleChange} type="search" placeholder='city, state, county, zip' />
+            </form>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
