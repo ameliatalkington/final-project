@@ -11,7 +11,6 @@ const styles = {
   },
   title: {
     marginLeft: '20px',
-    fontFamily: "'Source Serif Pro', serif",
     color: 'white',
     fontSize: '20px',
     textShadow: '0 4px 4px rgba(0, 0, 0, 0.25)'
