@@ -1,6 +1,5 @@
 import React from 'react';
 import SearchSuggestions from './seach-suggestions';
-// let timeout;
 
 const styles = {
   tagline: {
@@ -40,6 +39,7 @@ const styles = {
     width: '250px',
     height: '40px',
     border: 'solid rgba(0, 142, 151, 1) 2px',
+    borderBottom: 'solid rgba(0, 142, 151, 1) 2px',
     fontStyle: 'italic',
     fontSize: '18px',
     borderRadius: '0 7px 7px 7px',
@@ -59,15 +59,9 @@ export default class Home extends React.Component {
   }
 
   handleChange(event) {
-    // clearTimeout(timeout);
     const search = event.target.value;
     this.setState({ search });
     this.getEntires(search);
-    // timeout = setTimeout(timeoutFunction, 500);
-
-    // function timeoutFunction(search) {
-    //   this.getEntires(search);
-    // }
   }
 
   handleSubmit(event) {
