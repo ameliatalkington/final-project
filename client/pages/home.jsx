@@ -1,4 +1,5 @@
 import React from 'react';
+// let timeout;
 
 const styles = {
   tagline: {
@@ -49,22 +50,55 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ''
+      search: '',
+      data: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    //settimeout delay before sending get to api
-    console.log(event.target.value);
-    this.setState({ search: event.target.value });
+    // clearTimeout(timeout);
+    let search = event.target.value;
+    this.setState({ search });
+    this.getEntires(search);
+    // timeout = setTimeout(timeoutFunction, 500);
+
+    // function timeoutFunction(search) {
+    //   this.getEntires(search);
+    // }
   }
 
   handleSubmit(event) {
-    //send get to api
     event.preventDefault();
-    console.log('state:', this.state);
+    this.getEntires(this.state.search);
+  }
+
+  getEntires(search) {
+    if (Number(search)) {
+      fetch(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-postal-code&q=${search}&rows=5&facet=country_code&facet=postal-code&refine.country_code=US`)
+        .then(res => res.json())
+        .then(data => {
+          this.setState({ data: data.records });
+        })
+        .catch(err => console.error(err));
+    } else {
+      fetch(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000&q=${search}&rows=5&sort=population&facet=country&refine.country=United+States`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.records.length === 0) {
+            fetch(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-county-boundaries&q=${search}&rows=5&facet=statefp&facet=countyfp&facet=name&facet=namelsad&facet=stusab&facet=state_name`)
+              .then(res => res.json())
+              .then(data => {
+                this.setState({ data: data.records });
+              })
+              .catch(err => console.error(err));
+          }
+          this.setState({ data: data.records });
+        })
+        .catch(err => console.error(err));
+    }
+    console.log(this.state.data);
   }
 
   render() {
@@ -81,7 +115,7 @@ export default class Home extends React.Component {
             </div>
             <form onSubmit={this.handleSubmit}>
               <input style={styles.search} value={this.state.search}
-               onChange={this.handleChange} type="search" placeholder='city, state, county, zip' />
+               onChange={this.handleChange} type="search" placeholder='city, state, zip, county' />
             </form>
           </div>
         </div>
