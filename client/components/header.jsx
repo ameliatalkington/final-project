@@ -20,6 +20,10 @@ const styles = {
     color: 'white',
     fontSize: '28px',
     textShadow: '0 4px 4px rgba(0, 0, 0, 0.25)'
+  },
+  navbar: {
+    textDecoration: 'none',
+    color: 'white'
   }
 };
 
@@ -27,7 +31,9 @@ export default function Header(props) {
   return (
     <header className="header" style={styles.header}>
       <div className="title" style={styles.title}>
-        <h1>panacea.</h1>
+        <a href="#" className="navbar" style={styles.navbar}>
+          <h1>panacea.</h1>
+        </a>
       </div>
       <div className='menu-dropdown'>
         <i className="fas fa-bars" style={styles.menu}></i>
