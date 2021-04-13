@@ -53,7 +53,13 @@ export default class SearchResults extends React.Component {
     if (Number(this.props.results)) {
       fetch(`https://app.ticketmaster.com/discovery/v2/events?apikey=AJhKApTPLUNlyEAiqkodR7pR6b9Ht1Rq&latlong=${this.props.results}&locale=*&sort=date,asc`)
         .then(res => res.json())
-        .then(data => <RenderSearch results={data}/>)
+        .then(data => {
+          if (data._embedded) {
+            this.setState({ product: data._embedded.events });
+          } else {
+            this.setState({ product: 'empty' });
+          }
+        })
         .catch(err => console.error(err));
     } else {
       const cityState = this.props.results.split(',');
