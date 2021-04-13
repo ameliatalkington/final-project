@@ -1,39 +1,47 @@
 import React from 'react';
 
-function SearchSuggestions(props) {
-  if (props.data.length > 1) {
-    if (props.data[0].datasetid === 'geonames-all-cities-with-a-population-1000') {
-      return (
-        <div className='search-results-container'>
-          {
-            props.data.map(entry => {
-              return (
-                <div key={entry.recordid} className='search-suggestions'>
-                  {`${entry.fields.name}, ${entry.fields.admin1_code}`}
-                </div>
-              );
-            })
-          }
-        </div>
-      );
-    } else if (props.data[0].datasetid === 'geonames-postal-code') {
-      return (
-        <div className='search-results-container'>
-          {
-            props.data.map(entry => {
-              return (
-                <div key={entry.recordid} className='search-suggestions'>
-                  {entry.fields.postal_code}
-                </div>
-              );
-            })
-          }
-        </div>
-      );
-    }
+const styles = {
+  anchor: {
+    textDecoration: 'none',
+    color: 'black'
+  }
+};
 
+export default function SearchSuggestions(props) {
+  if (props.data.length > 1) {
+    return (
+      <div className='search-results-container'>
+        {
+          props.data.map(entry => {
+            return (
+              <div key={entry.recordid} className='search-suggestions'>
+                <SearchResults entry={entry}/>
+              </div>
+            );
+          })
+        }
+      </div>
+    );
   }
   return <div></div>;
 }
 
-export default SearchSuggestions;
+function SearchResults(props) {
+  if (props.entry.datasetid === 'geonames-all-cities-with-a-population-1000') {
+    return (
+      <a
+      style={styles.anchor}
+        href={`#results?data=${props.entry.fields.name},${props.entry.fields.admin1_code}`}>
+        {props.entry.fields.name}, {props.entry.fields.admin1_code}
+      </a>
+    );
+  } else {
+    return (
+      <a
+        style={styles.anchor}
+        href={`#results?data=${props.entry.fields.latitude},${props.entry.fields.longitude}`}>
+        {props.entry.fields.postal_code}
+      </a>
+    );
+  }
+}

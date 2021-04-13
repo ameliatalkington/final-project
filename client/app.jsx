@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/header';
 import Home from './pages/home';
 import { parseRoute } from './lib';
+import SearchResults from './pages/search-results';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,6 +23,10 @@ export default class App extends React.Component {
     const { route } = this.state;
     if (route.path === '') {
       return <Home />;
+    }
+    if (route.path === 'results') {
+      const data = route.params.get('data');
+      return <SearchResults results={data} />;
     }
   }
 

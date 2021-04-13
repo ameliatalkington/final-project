@@ -7,7 +7,12 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(0, 142, 151, 1)'
+    backgroundColor: 'rgba(0, 142, 151, 1)',
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    right: '0',
+    zIndex: '2'
   },
   title: {
     marginLeft: '20px',
