@@ -118,6 +118,7 @@ export default class SearchResults extends React.Component {
 
 function RenderSearch(props) {
   const newTime = [];
+  const newDate = [];
   if (props) {
     if (props.entry.dates.start.localTime) {
       const timeArray = props.entry.dates.start.localTime.split(':');
@@ -129,11 +130,15 @@ function RenderSearch(props) {
         newTime.push(`${timeArray[1]}am`);
       }
     }
-    const dateArray = props.entry.dates.start.localDate.split('-');
-    const newDate = `${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`;
+    if (props.entry.dates.start.localDate) {
+      const dateArray = props.entry.dates.start.localDate.split('-');
+      newDate.push(`${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`);
+    }
     return (
       <div>
+        <a href={`#entry?eventId=${props.entry.id}`}>
         <img style={styles.images} src={props.entry.images[0].url} alt="image" />
+        </a>
         <h3>{props.entry.name}</h3>
         <h3>{newTime.join(':')}</h3>
         <h3>{newDate}</h3>
