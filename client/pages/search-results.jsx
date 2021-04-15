@@ -93,7 +93,7 @@ export default class SearchResults extends React.Component {
             <h2 style={styles.title}>{this.props.results.split(',').join(', ')}</h2>
             <button style={styles.filter}>filter</button>
           </div>
-          <a className='back-results' href="">back</a>
+          <a className='back-results' href="#">back</a>
         </div>
         <div className='results'>
           {
@@ -105,11 +105,6 @@ export default class SearchResults extends React.Component {
               );
             })
           }
-          <div style={styles.more}>
-            <a style={styles.anchor} href="">
-              more results
-            </a>
-          </div>
         </div>
       </div>
     );
@@ -118,6 +113,7 @@ export default class SearchResults extends React.Component {
 
 function RenderSearch(props) {
   const newTime = [];
+  const newDate = [];
   if (props) {
     if (props.entry.dates.start.localTime) {
       const timeArray = props.entry.dates.start.localTime.split(':');
@@ -129,11 +125,15 @@ function RenderSearch(props) {
         newTime.push(`${timeArray[1]}am`);
       }
     }
-    const dateArray = props.entry.dates.start.localDate.split('-');
-    const newDate = `${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`;
+    if (props.entry.dates.start.localDate) {
+      const dateArray = props.entry.dates.start.localDate.split('-');
+      newDate.push(`${dateArray[1]}/${dateArray[2]}/${dateArray[0]}`);
+    }
     return (
       <div>
-        <img style={styles.images} src={props.entry.images[0].url} alt="image" />
+        <a href={`#entry?eventId=${props.entry.id}`}>
+          <img style={styles.images} src={props.entry.images[0].url} alt="image" />
+        </a>
         <h3>{props.entry.name}</h3>
         <h3>{newTime.join(':')}</h3>
         <h3>{newDate}</h3>
@@ -147,7 +147,7 @@ function RenderMessage() {
     <div style={styles.message}>
       <h3>Sorry, your search has no results</h3>
       <div style={styles.more}>
-        <a style={styles.anchor} href="">
+        <a style={styles.anchor} href="#">
           new search
         </a>
       </div>

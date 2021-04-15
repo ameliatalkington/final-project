@@ -87,6 +87,11 @@
   margin-bottom: 30px;
 }
 
+.result {
+  width: 300px;
+  margin-top: 30px;
+}
+
 .title-filter {
   margin-left: 2rem;
   width: 275px;
@@ -106,6 +111,40 @@
   color: black;
   cursor: pointer;
   margin-right: 2rem;
+}
+
+.information {
+  width: 300px;
+  text-align: center;
+}
+
+.get-ticket {
+  width: 120px;
+  height: 40px;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 18px;
+  border: none;
+  border-radius: 7px;
+  background-color: rgba(0, 142, 151, 1);
+  color: white;
+}
+
+.back {
+  width: 300px;
+  height: 30px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.event-image {
+  width: 100%;
+}
+
+.event-image:not(:last-child) {
+  margin-bottom: 30px;
 }
 
 @media screen and (min-width: 500px) {
@@ -132,12 +171,29 @@
 }
 
 @media screen and (min-width: 645px) {
-  .results {
+  .results,
+  .result,
+  .back,
+  .information {
     width: 500px;
   }
 }
 
 @media screen and (min-width: 900px) {
+  .result,
+  .back,
+  .information {
+    width: 800px;
+  }
+
+  .event-image:not(:last-child) {
+    width: 50%;
+  }
+
+  .event-image:nth-child(2) {
+    width: 50%;
+  }
+
   .results {
     width: 100%;
     display: flex;
