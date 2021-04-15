@@ -3,7 +3,7 @@ import Header from './components/header';
 import Home from './pages/home';
 import { parseRoute } from './lib';
 import SearchResults from './pages/search-results';
-import IndividualResult from './pages/individual-result';
+import EventDetails from './pages/event-details';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class App extends React.Component {
     }
     if (route.path === 'entry') {
       const eventId = route.params.get('eventId');
-      return <IndividualResult eventId={eventId} />;
+      return <EventDetails eventId={eventId} />;
     }
   }
 

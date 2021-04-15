@@ -139,14 +139,12 @@
   padding-top: 30px;
 }
 
-.image-top,
-.image-bottom,
-.image-solo {
+.event-image {
   width: 100%;
 }
 
-.image-top {
-  padding-bottom: 20px;
+.event-image:not(:last-child) {
+  margin-bottom: 30px;
 }
 
 @media screen and (min-width: 500px) {
@@ -188,17 +186,12 @@
     width: 800px;
   }
 
-  .image-top,
-  .image-bottom {
+  .event-image:not(:last-child) {
     width: 50%;
   }
 
-  .image-top {
-    padding-right: 10px;
-  }
-
-  .image-bottom {
-    padding-left: 10px;
+  .event-image:nth-child(2) {
+    width: 50%;
   }
 
   .results {
