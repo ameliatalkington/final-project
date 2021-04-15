@@ -93,7 +93,7 @@ export default class SearchResults extends React.Component {
             <h2 style={styles.title}>{this.props.results.split(',').join(', ')}</h2>
             <button style={styles.filter}>filter</button>
           </div>
-          <a className='back-results' href="">back</a>
+          <a className='back-results' href="#">back</a>
         </div>
         <div className='results'>
           {
@@ -105,11 +105,6 @@ export default class SearchResults extends React.Component {
               );
             })
           }
-          <div style={styles.more}>
-            <a style={styles.anchor} href="">
-              more results
-            </a>
-          </div>
         </div>
       </div>
     );
@@ -137,7 +132,7 @@ function RenderSearch(props) {
     return (
       <div>
         <a href={`#entry?eventId=${props.entry.id}`}>
-        <img style={styles.images} src={props.entry.images[0].url} alt="image" />
+          <img style={styles.images} src={props.entry.images[0].url} alt="image" />
         </a>
         <h3>{props.entry.name}</h3>
         <h3>{newTime.join(':')}</h3>
@@ -152,7 +147,7 @@ function RenderMessage() {
     <div style={styles.message}>
       <h3>Sorry, your search has no results</h3>
       <div style={styles.more}>
-        <a style={styles.anchor} href="">
+        <a style={styles.anchor} href="#">
           new search
         </a>
       </div>
