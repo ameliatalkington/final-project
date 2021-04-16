@@ -33,6 +33,19 @@ export default class App extends React.Component {
       const eventId = route.params.get('eventId');
       return <EventDetails eventId={eventId} />;
     }
+    if (route.path === 'filtered') {
+      const filters = {
+        startDate: route.params.get('startDate'),
+        time: route.params.get('time')
+      }
+      if (route.params.get('keyword')) {
+        filters.keyword = route.params.get('keyword');
+      }
+      if (route.params.get('endDate')) {
+        filters.endDate = route.params.get('endDate');
+      }
+      return <FilteredResults filters={filters} />
+    }
   }
 
   render() {

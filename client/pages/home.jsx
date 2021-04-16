@@ -1,5 +1,7 @@
 import React from 'react';
+import FilterEvents from './filter-events';
 import SearchSuggestions from './seach-suggestions';
+import SearchResults from './search-results';
 
 const styles = {
   tagline: {
@@ -18,7 +20,9 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       search: '',
-      data: []
+      data: [],
+      name: '',
+      stateCode: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -32,7 +36,25 @@ export default class Home extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.getEntires(this.state.search);
+    if (Number(this.state.search)) {
+      fetch(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-postal-code&q=${this.state.search}&rows=5&facet=country_code&facet=postal-code&refine.country_code=US`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          window.location.assign(`#results?data=${data.records[0].fields.latitude},${data.records[0].fields.longitude}`);
+        })
+        .catch(err => console.error(err));
+    } else {
+      fetch(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000&q=${this.state.search}&rows=5&sort=population&facet=country&refine.country=United+States`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          this.setState({ name: data.records[0].fields.name });
+          this.setState({ stateCode: data.records[0].fields['admin1_code'] });
+          window.location.assign(`#results?data=${this.state.name},${this.state.stateCode}`);
+        })
+        .catch(err => console.error(err));
+    }
   }
 
   getEntires(search) {
@@ -56,8 +78,7 @@ export default class Home extends React.Component {
   }
 
   render() {
-
-    return (
+    return(
       <>
         <div className='home-search'>
           <div className='float-text' style={styles.tagline}>
@@ -70,12 +91,13 @@ export default class Home extends React.Component {
             </div>
             <form onSubmit={this.handleSubmit}>
               <input className='search-input' value={this.state.search}
-               onChange={this.handleChange} type="search" placeholder='city, state, zip' />
+                onChange={this.handleChange} type="search" placeholder='city, state, zip' />
             </form>
-            <SearchSuggestions data={this.state.data}/>
+              <SearchSuggestions data={this.state.data} />
           </div>
         </div>
       </>
     );
   }
+
 }
