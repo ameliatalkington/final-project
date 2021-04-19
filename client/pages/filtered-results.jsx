@@ -105,7 +105,7 @@ export default class FilteredResults extends React.Component {
 
   render() {
     if (!this.state.filteredResults) return null;
-    if (this.state.product === 'empty') {
+    if (this.state.filteredResults === 'empty') {
       return (
         <RenderMessage />
       );
@@ -115,7 +115,6 @@ export default class FilteredResults extends React.Component {
         <div className='mini-header'>
           <div className='title-filter'>
             <h2 style={styles.title}>{this.state.city.split(',').join(', ')}</h2>
-            <button onClick={this.handleClick} style={styles.filter}>filter</button>
           </div>
           <a className='back-results' href={`#results?data=${this.state.city}`}>back</a>
         </div>
@@ -174,7 +173,7 @@ function RenderMessage() {
     <div style={styles.message}>
       <h3>Sorry, your search has no results</h3>
       <div style={styles.more}>
-        <a style={styles.anchor} href="#">
+        <a style={styles.anchor} href={`#results?data=${this.state.city}`}>
           new search
         </a>
       </div>
