@@ -125,7 +125,7 @@ export default class SearchResults extends React.Component {
   }
 }
 
-export function RenderSearch(props) {
+function RenderSearch(props) {
   const newTime = [];
   const newDate = [];
   if (props) {

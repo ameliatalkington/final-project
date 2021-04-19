@@ -49,6 +49,7 @@
   font-size: 18px;
   border-radius: 0 7px 7px 7px;
   padding-left: 10px;
+  margin: 0;
 }
 
 .search-suggestions {
@@ -147,6 +148,42 @@
   margin-bottom: 30px;
 }
 
+.filter-form {
+  position: absolute;
+  background-color: white;
+  top: 70px;
+  left: 0;
+  right: 0;
+  border-top: 2px solid rgba(0, 142, 151, 1);
+  border-bottom: 2px solid rgba(0, 142, 151, 1);
+}
+
+.inputs-container {
+  width: 100%;
+  height: 60px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.filter-input {
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: solid 1px darkgrey;
+  border-radius: 5px;
+  padding-left: 7px;
+}
+
+#submit {
+  font-size: 16px;
+}
+
 @media screen and (min-width: 500px) {
   .container {
     width: 350px;
@@ -176,6 +213,15 @@
   .back,
   .information {
     width: 500px;
+  }
+
+  .filter-form {
+    width: 400px;
+    position: fixed;
+    top: 170px;
+    left: 2rem;
+    border: 2px solid rgba(0, 142, 151, 1);
+    border-radius: 0 0 10px 10px;
   }
 }
 
