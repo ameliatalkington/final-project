@@ -1,4 +1,5 @@
 import React from 'react';
+import FilterEvents from './filter-events';
 
 const styles = {
   images: {
@@ -45,8 +46,18 @@ export default class SearchResults extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: null
+      product: null,
+      filter: 'off'
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    if (this.state.filter === 'off') {
+      this.setState({ filter: 'on' });
+    } else {
+      this.setState({ filter: 'off' });
+    }
   }
 
   componentDidMount() {
@@ -91,21 +102,24 @@ export default class SearchResults extends React.Component {
         <div className='mini-header'>
           <div className='title-filter'>
             <h2 style={styles.title}>{this.props.results.split(',').join(', ')}</h2>
-            <button style={styles.filter}>filter</button>
+            <button onClick={this.handleClick} style={styles.filter}>filter</button>
           </div>
           <a className='back-results' href="#">back</a>
         </div>
-        <div className='results'>
-          {
-            this.state.product.map(entry => {
-              return (
-                <div key={entry.id} className='individual-result'>
-                  <RenderSearch entry={entry} />
-                </div>
-              );
-            })
-          }
-        </div>
+        {this.state.filter === 'on' &&
+          <FilterEvents location={this.props.results}/>
+        }
+          <div className='results'>
+            {
+              this.state.product.map(entry => {
+                return (
+                  <div key={entry.id} className='individual-result'>
+                    <RenderSearch entry={entry} />
+                  </div>
+                );
+              })
+            }
+          </div>
       </div>
     );
   }

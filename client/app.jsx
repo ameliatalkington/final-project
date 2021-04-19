@@ -4,6 +4,7 @@ import Home from './pages/home';
 import { parseRoute } from './lib';
 import SearchResults from './pages/search-results';
 import EventDetails from './pages/event-details';
+import FilteredResults from './pages/filtered-results';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -32,6 +33,10 @@ export default class App extends React.Component {
     if (route.path === 'entry') {
       const eventId = route.params.get('eventId');
       return <EventDetails eventId={eventId} />;
+    }
+    if (route.path === 'filter') {
+      const filters = route.params.get('data');
+      return <FilteredResults filters={filters} />;
     }
   }
 
